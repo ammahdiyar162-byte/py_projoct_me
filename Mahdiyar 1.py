@@ -1,0 +1,10 @@
+x=float(input('Enter Number 1 '))
+s=float(input('Enter Number 2 '))
+
+print(f' {x} + {s} = {x+s}')
+print(f' {x} - {s} = {x-s}')
+print(f' {x} * {s} = {x*s}')
+print(f' {x} / {s} = {x/s}')
+print(f' {x} ** {s} = {x**s}')
+print(f' {x} // {s} = {x//s}')
+print(f' {x} % {s} = {x%s}')
