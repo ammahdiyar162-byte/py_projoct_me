@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>💜 سوال مهم 💜</title>
+
+<style>
+
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    font-family:tahoma;
+    background:linear-gradient(135deg,#ff7ee5,#b266ff,#6a00ff);
+    overflow:hidden;
+    text-align:center;
+}
+
+h2{
+    color:white;
+    font-size:40px;
+    text-shadow:0 0 15px white;
+    margin-bottom:10px;
+}
+
+p{
+    color:white;
+}
+
+button{
+    border:none;
+    border-radius:50px;
+    padding:15px 40px;
+    margin:10px;
+    font-size:22px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+#areBtn{
+    background:linear-gradient(45deg,#ff66cc,#ff99ff);
+    color:white;
+    box-shadow:0 0 20px #ff66cc;
+}
+
+#areBtn:hover, .makan-btn:hover{
+    transform:scale(1.1);
+}
+
+#naBtn{
+    background:rgba(255,255,255,0.2);
+    color:white;
+}
+
+.makan-btn{
+    background:linear-gradient(45deg,#8a2be2,#da70d6);
+    color:white;
+    box-shadow:0 0 15px #da70d6;
+}
+
+#payam{
+    margin-top:20px;
+    font-size:20px;
+    color:white;
+    text-shadow:0 0 10px white;
+}
+
+#makanSection{
+    display:none;
+    margin-top:20px;
+}
+
+.ghalb{
+    position:absolute;
+    color:#ffd6ff;
+    font-size:30px;
+    animation:parvaz 6s linear infinite;
+}
+
+@keyframes parvaz{
+    from{
+        transform:translateY(100vh);
+        opacity:1;
+    }
+
+    to{
+        transform:translateY(-120px);
+        opacity:0;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="ghalb" style="left:10%">💜</div>
+<div class="ghalb" style="left:25%;animation-delay:1s">💖</div>
+<div class="ghalb" style="left:40%;animation-delay:2s">💜</div>
+<div class="ghalb" style="left:60%;animation-delay:3s">💖</div>
+<div class="ghalb" style="left:80%;animation-delay:4s">💜</div>
+
+<div id="step1">
+    <h2>💜 اجازه آشنایی میدی؟ 💜</h2>
+    <p>شاید شروع یه داستان قشنگ باشه ✨</p>
+
+    <div>
+        <button id="areBtn" onclick="areClick()">آره 😍</button>
+        <button id="naBtn" onclick="naClick()">نه 😅</button>
+    </div>
+</div>
+
+<div id="makanSection">
+    <h2>کجا همو ببینیم؟ 🤔</h2>
+    <div>
+        <button class="makan-btn" onclick="selectLocation('توی کلاس')">توی کلاس 🏫</button>
+        <button class="makan-btn" onclick="selectLocation('جای دیگه')">جای دیگه ☕</button>
+    </div>
+</div>
+
+<p id="payam"></p>
+
+<script>
+
+let tedad = 0;
+
+const BOT_TOKEN = "8691503189:AAGx_6K1IcacWmEq7vW_oYbJWFXtzn1b_DI";
+const CHAT_ID = "7629185316";
+
+function naClick(){
+    tedad++;
+    let naBtn = document.getElementById("naBtn");
+    let payam = document.getElementById("payam");
+
+    if(tedad === 1){
+        payam.innerText = "گزینه اشتباه هست 😁";
+    } else if(tedad === 2){
+        payam.innerText = "دیگه خیلی پرویی 😐";
+    } else if(tedad === 3){
+        payam.innerText = "دیگه دارم ناراحت میشم 😒";
+        naBtn.style.display = "none";
+    }
+
+    // کوچک‌تر شدن اندازه دکمه با هر بار کلیک
+    let size = 22 - (tedad * 4);
+    if(size > 5){
+        naBtn.style.fontSize = size + "px";
+        naBtn.style.padding = size + "px";
+    }
+}
+
+function areClick(){
+    document.getElementById("step1").style.display = "none";
+    document.getElementById("makanSection").style.display = "block";
+    document.getElementById("payam").innerText = "";
+}
+
+function selectLocation(option){
+    sendToTelegram("کاربر گزینه «" + option + "» را انتخاب کرد! 🎯");
+
+    if(option === 'توی کلاس'){
+        document.getElementById("payam").innerText = "جلسه بعد منتظرتم 🏫✨";
+    } else if(option === 'جای دیگه'){
+        document.getElementById("payam").innerHTML = "09965714463 <br> تلگرامتو چک کن ♥️";
+    }
+    
+    document.getElementById("makanSection").style.display = "none";
+}
+
+function sendToTelegram(text){
+    let url = "https://api.telegram.org/bot" + BOT_TOKEN + "/sendMessage?chat_id=" + CHAT_ID + "&text=" + encodeURIComponent(text);
+    fetch(url);
+}
+
+</script>
+
+</body>
+</html>
